@@ -13,14 +13,15 @@ mongoose
   .then(console.log(`Database Connected Sucessfully.`))
   .catch((e) => console.log(`Something went wrong`, e.toString()));
 
+app.use("/assets", express.static("public"));
 app.use(express.json());
 app.use(morgan("tiny"));
 app.use("/", indexRouter);
 
-app.use((error,req,res,next)=>{
-    const errMsg = error.toString() || `Something went Wrong`;
-    res.status(500).json({data: null, error: errMsg});
-})
+app.use((error, req, res, next) => {
+  const errMsg = error.toString() || `Something went Wrong`;
+  res.status(500).json({ data: null, error: errMsg });
+});
 
 app.listen(PORT, () =>
   console.log(`App is running at http://localhost:${PORT}`),
